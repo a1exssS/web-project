@@ -1,0 +1,26 @@
+@import './reset.scss';
+@import './variables/globals.scss';
+@import './themes/light.scss';
+@import './themes/dark.scss';
+
+body {
+   font: var(--font-m);
+   min-height: 100vh;
+   color: var(--primary-color);
+
+
+}
+
+.light_theme {
+   background-color: var(--bg-color);
+   color: var(--primary-color);
+}
+
+.dark_theme {
+   background-color: var(--bg-color);
+   color: var(--primary-color);
+}
+
+.main {
+   display: flex;
+}
