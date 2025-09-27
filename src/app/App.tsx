@@ -1,8 +1,11 @@
+import { UserCounter } from 'entities/User/ui/userCounter'
 import React from 'react'
 
 const App = () => {
    return (
-      <div>App</div>
+      <div>
+         <UserCounter />
+      </div>
    )
 }
 

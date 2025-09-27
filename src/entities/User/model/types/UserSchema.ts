@@ -3,11 +3,15 @@ export interface User {
    firstName: string;
    lastName: string;
    age: number;
-   Descritpion: string;
-   Avatar: string;
+   descritpion: string;
+   avatar: string;
    id: string;
 }
 
 export interface UserSchema {
    authData?: User;
 }
+
+export interface Counter {
+   value: number
+} 
