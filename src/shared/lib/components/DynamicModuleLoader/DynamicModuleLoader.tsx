@@ -23,6 +23,7 @@ export const DynamicModuleLoader = ({
    useEffect(() => {
       Object.entries(reducers).forEach(([key, reducer]) => {
          if (!store.reducerManager.getReducerMap()[key as StateSchemaKeys]) {
+            store.dispatch({ type: `@INIT ${name} reducer` })
             store.reducerManager.add(key as StateSchemaKeys, reducer!)
          }
       })
@@ -30,6 +31,7 @@ export const DynamicModuleLoader = ({
       return () => {
          if (removeAfterUnmount) {
             Object.keys(reducers).forEach((key) => {
+               store.dispatch({ type: `@REMOVE ${name} reducer` })
                store.reducerManager.remove(key as StateSchemaKeys)
             })
          }

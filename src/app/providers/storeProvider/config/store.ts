@@ -1,14 +1,13 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit'
-import { AppStore, ExtraThunkArg, StateSchema } from '../schema/StateSchema'
+import { StateSchema, ExtraThunkArg } from '../schema/StateSchema'
 import { $api } from 'shared/api/api'
 import { createReducerManager } from './reducerManager'
 import { userReducers } from 'entities/User'
 
-
 export function createReduxStore(
    initialState?: StateSchema,
    asyncReducers?: ReducersMapObject<StateSchema>
-): AppStore {
+) {
    const extraArgs: ExtraThunkArg = {
       api: $api,
    }
@@ -30,9 +29,10 @@ export function createReduxStore(
                extraArgument: extraArgs,
             },
          }),
-   }) as AppStore
+   })
 
-   store.reducerManager = reducerManager
-
-   return store
+   return {
+      ...store,
+      reducerManager,
+   }
 }

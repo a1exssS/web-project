@@ -8,9 +8,12 @@ import {
 import { AxiosInstance } from "axios";
 import { createReducerManager } from "../config/reducerManager";
 import { UserSchema } from "entities/User";
+import { RegisterSchema } from "features/RegisterUser";
+import { createReduxStore } from "../config/store";
 
 export interface StateSchema {
-   user: UserSchema
+   user: UserSchema;
+   register?: RegisterSchema;
 }
 
 export interface ExtraThunkArg {
@@ -38,4 +41,4 @@ export interface AppStore extends EnhancedStore<StateSchema> {
    reducerManager: ReturnType<typeof createReducerManager>
 }
 
-export type AppDispatch = AppStore['dispatch']
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];
