@@ -24,7 +24,7 @@ export const DynamicModuleLoader = ({
       Object.entries(reducers).forEach(([key, reducer]) => {
          if (!store.reducerManager.getReducerMap()[key as StateSchemaKeys]) {
             store.dispatch({ type: `@INIT ${name} reducer` })
-            store.reducerManager.add(key as StateSchemaKeys, reducer!)
+            store.reducerManager.add(key as StateSchemaKeys, reducer)
          }
       })
 

@@ -6,8 +6,10 @@ import { Button } from 'shared/ui/Button/Button'
 import { useSelector } from 'react-redux'
 import { getRegisterAge, getRegisterFirstName, getRegisterPassword, getRegisterUsername } from '../model/selector/registerUserData'
 import { registerUser } from '../model/service/registerUsername/registerUsername'
+import { Input, InputThemes } from 'shared/ui/Input/Input'
+import styles from './RegisterUserForm.module.scss'
 
-const rootReducer: ReducersList = {
+const initReducer: ReducersList = {
    register: registerUserReducers
 }
 
@@ -19,37 +21,55 @@ export const RegisterUserForm = memo(() => {
    const firstName = useSelector(getRegisterFirstName)
    const age = useSelector(getRegisterAge)
 
-   const onChangeUsername = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(registerUserActions.setUsername(e.target.value))
+   const onChangeUsername = useCallback((value: string) => {
+      dispatch(registerUserActions.setUsername(value))
    }, [dispatch])
-   const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(registerUserActions.setPassword(e.target.value))
+   const onChangePassword = useCallback((value: string) => {
+      dispatch(registerUserActions.setPassword(value))
    }, [dispatch])
-   const onChangeAge = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(registerUserActions.setAge(Number(e.target.value)))
+   const onChangeAge = useCallback((value: string) => {
+      dispatch(registerUserActions.setAge(Number(value)))
    }, [dispatch])
-   const onChangeFirstName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(registerUserActions.setFirstName(e.target.value))
+   const onChangeFirstName = useCallback((value: string) => {
+      dispatch(registerUserActions.setFirstName(value))
    }, [dispatch])
 
-   const onSubmit = useCallback(async () => {
-      const result = await dispatch(registerUser({
+   const onSubmit = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      dispatch(registerUser({
          age, firstName, password, username
       }))
-      if (registerUser.fulfilled.match(result)) {
-         console.log('Успешно:', result.payload)
-      } else {
-         console.log('Ошибка:', result.payload)
-      }
    }, [dispatch, age, firstName, password, username])
 
    return (
-      <DynamicModuleLoader reducers={rootReducer}>
-         <input type="text" onChange={onChangeUsername} value={username} />
-         <input type="text" onChange={onChangePassword} value={password} />
-         <input type="text" onChange={onChangeFirstName} value={firstName} />
-         <input type="text" onChange={onChangeAge} value={age} />
-         <Button onClick={onSubmit}>Отправить</Button>
+      <DynamicModuleLoader reducers={initReducer}>
+         <form onSubmit={onSubmit} className={styles.Form}>
+            <Input
+               innerPlaceholder='Username'
+               theme={InputThemes.OUTLINE_CIRCLED}
+               onChange={onChangeUsername}
+               value={username}
+            />
+            <Input
+               innerPlaceholder='Password'
+               theme={InputThemes.OUTLINE_CIRCLED}
+               onChange={onChangePassword}
+               value={password}
+            />
+            <Input
+               innerPlaceholder='First Name'
+               theme={InputThemes.OUTLINE_CIRCLED}
+               onChange={onChangeFirstName}
+               value={firstName}
+            />
+            <Input
+               innerPlaceholder='Age'
+               theme={InputThemes.OUTLINE_CIRCLED}
+               onChange={onChangeAge}
+               value={String(age)}
+            />
+            <Button type='submit'>Отправить</Button>
+         </form>
       </DynamicModuleLoader>
    )
 })
