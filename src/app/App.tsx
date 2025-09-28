@@ -3,7 +3,9 @@ import { AppRouters } from './providers/router/ui/AppRouters'
 
 const App = () => {
    return (
-      <AppRouters />
+      <div className='light_theme'>
+         <AppRouters />
+      </div>
    )
 }
 

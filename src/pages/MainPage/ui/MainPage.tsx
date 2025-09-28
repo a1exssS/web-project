@@ -1,8 +1,11 @@
 import React, { memo } from 'react'
+import { Page } from 'widgets/Page'
 
 const MainPage = memo(() => {
    return (
-      <div>MainPage</div>
+      <Page>
+         MainPage
+      </Page>
    )
 })
 

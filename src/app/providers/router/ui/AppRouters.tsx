@@ -1,7 +1,8 @@
 import React, { Suspense, useCallback } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { AppRouteProps, routeConfig } from 'shared/config/routeConfig'
+import { AppRouteProps, routeConfig } from 'shared/config/routeConfig/routeConfig'
 import { RequireAuth } from './RequireAuth'
+import { PageLoader } from 'widgets/PageLoader'
 
 export const AppRouters = () => {
 
@@ -16,7 +17,7 @@ export const AppRouters = () => {
    }, [])
 
    return (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoader />}>
          <Routes>
             {Object.values(routeConfig).map(renderRoutes)}
          </Routes>
