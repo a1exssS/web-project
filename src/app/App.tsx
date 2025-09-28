@@ -1,11 +1,9 @@
-import { UserCounter } from 'entities/User/ui/userCounter'
 import React from 'react'
+import { AppRouters } from './providers/router/ui/AppRouters'
 
 const App = () => {
    return (
-      <div>
-         <UserCounter />
-      </div>
+      <AppRouters />
    )
 }
 

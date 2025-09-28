@@ -1,30 +1,41 @@
-import { Reducer } from '@reduxjs/toolkit';
-import { StateSchema, StateSchemaKeys } from 'app/providers/storeProvider';
-import React, { useEffect } from 'react'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useAppStore } from 'shared/lib/hooks/useAppStore/useAppStore';
+import { useEffect } from "react"
+import { useStore } from "react-redux"
+import { Reducer } from "@reduxjs/toolkit"
+import { AppStore, StateSchema, StateSchemaKeys } from "app/providers/storeProvider"
 
 export type ReducersList = {
-   [action in StateSchemaKeys]?: Reducer<NonNullable<StateSchema[action]>>
+   [key in StateSchemaKeys]?: Reducer<NonNullable<StateSchema[key]>>
 }
 
 interface DynamicModuleLoaderProps {
-   children: React.ReactNode;
-   reducer: ReducersList
+   reducers: ReducersList
+   removeAfterUnmount?: boolean
+   children: React.ReactNode
 }
 
-export const DynamicModuleLoader = ({ children, reducer }: DynamicModuleLoaderProps) => {
-
-   const dispatch = useAppDispatch()
-   const store = useAppStore()
+export const DynamicModuleLoader = ({
+   reducers,
+   removeAfterUnmount = true,
+   children,
+}: DynamicModuleLoaderProps) => {
+   const store = useStore() as AppStore
 
    useEffect(() => {
+      Object.entries(reducers).forEach(([key, reducer]) => {
+         if (!store.reducerManager.getReducerMap()[key as StateSchemaKeys]) {
+            store.reducerManager.add(key as StateSchemaKeys, reducer!)
+         }
+      })
 
+      return () => {
+         if (removeAfterUnmount) {
+            Object.keys(reducers).forEach((key) => {
+               store.reducerManager.remove(key as StateSchemaKeys)
+            })
+         }
+      }
+      // eslint-disable-next-line
    }, [])
 
-   return (
-      <>
-         {children}
-      </>
-   )
+   return <>{children}</>
 }

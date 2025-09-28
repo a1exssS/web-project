@@ -17,7 +17,7 @@ export default (env: BuildEnv) => {
    const mode = env.mode || 'development';
    const isDev = mode === 'development';
    const PORT = env.port || 3000;
-   const apiUrl = env.apiUrl || 'http://localhost:8000'
+   const apiUrl = env.apiUrl || 'https://big.baby.table.mooo.com/swagger/index.html'
 
    const config: webpack.Configuration = buildWebpackConfig({
       mode,

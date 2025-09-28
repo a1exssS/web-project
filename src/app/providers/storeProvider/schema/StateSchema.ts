@@ -6,10 +6,11 @@ import {
    EnhancedStore
 } from "@reduxjs/toolkit";
 import { AxiosInstance } from "axios";
-import { Counter } from "entities/User/model/types/UserSchema";
+import { createReducerManager } from "../config/reducerManager";
+import { UserSchema } from "entities/User";
 
 export interface StateSchema {
-   user: Counter
+   user: UserSchema
 }
 
 export interface ExtraThunkArg {
@@ -34,7 +35,7 @@ export interface ReducerManager {
 }
 
 export interface AppStore extends EnhancedStore<StateSchema> {
-   reducerManager: ReducerManager
+   reducerManager: ReturnType<typeof createReducerManager>
 }
 
 export type AppDispatch = AppStore['dispatch']

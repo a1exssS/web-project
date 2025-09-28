@@ -1,19 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Counter } from "../types/UserSchema";
+import { UserSchema } from "../types/UserSchema";
 
-const initialState: Counter = {
-   value: 0
+const initialState: UserSchema = {
+
 }
 
-const counterSlice = createSlice({
+const userSlice = createSlice({
    name: 'user',
    initialState,
    reducers: {
-      increaceValue: (state) => {
-         state.value += 1
-      }
+
    },
 })
 
-export const { actions: actionsCounter } = counterSlice
-export const { reducer: reducerCounter } = counterSlice
+export const { actions: userActions } = userSlice
+export const { reducer: userReducers } = userSlice
