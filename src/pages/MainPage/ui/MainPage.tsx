@@ -1,12 +1,11 @@
-import React, { memo } from 'react'
 import { Page } from 'widgets/Page'
 
-const MainPage = memo(() => {
+const MainPage = () => {
    return (
       <Page>
          MainPage
       </Page>
    )
-})
+}
 
 export default MainPage
