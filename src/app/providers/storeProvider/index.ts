@@ -1,1 +1,1 @@
-export { AppDispatch, AppStore, StateSchema, StateSchemaKeys } from "./schema/StateSchema";
+export { AppDispatch, AppStore, StateSchema, StateSchemaKeys, ThunkConfig } from "./schema/StateSchema";

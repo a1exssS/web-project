@@ -4,3 +4,4 @@ export const getRegisterUsername = (state: StateSchema) => state.register?.usern
 export const getRegisterPassword = (state: StateSchema) => state.register?.password ?? ''
 export const getRegisterAge = (state: StateSchema) => state.register?.age ?? 0
 export const getRegisterFirstName = (state: StateSchema) => state.register?.firstName ?? ''
+export const getRegisterPhone = (state: StateSchema) => state.register?.phone ?? ''

@@ -30,6 +30,9 @@ const registerUser = createSlice({
       setUsername: (state, action: PayloadAction<string>) => {
          state.username = action.payload
       },
+      setPhone: (state, action: PayloadAction<string>) => {
+         state.phone = action.payload
+      },
    },
 })
 

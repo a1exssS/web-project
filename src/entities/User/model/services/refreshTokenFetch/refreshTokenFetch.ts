@@ -1,24 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from 'app/providers/storeProvider/schema/StateSchema'
-import { User } from 'entities/User'
+import { User, userActions } from 'entities/User'
 
-interface registerProps {
-   password: string;
-   username: string;
-   age: number;
-   firstName: string;
-   phoneNumber: string;
-}
-
-export const registerUser = createAsyncThunk<User, registerProps, ThunkConfig<string>>(
-   'users/registerUser',
+export const refreshTokenFetch = createAsyncThunk<User, void, ThunkConfig<string>>(
+   'users/refreshTokenFetch',
    async (data, { dispatch, extra, rejectWithValue }) => {
       try {
-         const response = await extra.api.post('/v1/auth/register', data)
+         const response = await extra.api.post('/v1/auth', data)
 
          if (!response.data) {
             throw new Error()
          }
+
+         dispatch(userActions.setAuthData(response.data))
 
          return response.data
       } catch (e) {

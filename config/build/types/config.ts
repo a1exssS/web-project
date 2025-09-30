@@ -12,6 +12,7 @@ export interface BuildEnv {
    mode: BuildMode;
    port: number;
    apiUrl: string;
+   socketUrl: string;
 }
 
 export interface BuildOptions {
@@ -20,5 +21,6 @@ export interface BuildOptions {
    isDev: boolean;
    port: number;
    apiUrl: string;
+   socketUrl: string;
    project: 'storybook' | 'frontend' | 'jest'
 }

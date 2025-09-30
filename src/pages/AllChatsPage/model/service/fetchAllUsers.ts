@@ -1,24 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ThunkConfig } from 'app/providers/storeProvider/schema/StateSchema'
-import { User } from 'entities/User'
+import { allChatsActions } from '../slice/allChatsSlice'
+import { AllChatsSchema } from '../types/AllChatsSchema'
 
-interface registerProps {
-   password: string;
-   username: string;
-   age: number;
-   firstName: string;
-   phoneNumber: string;
-}
-
-export const registerUser = createAsyncThunk<User, registerProps, ThunkConfig<string>>(
-   'users/registerUser',
+export const fetchAllUsers = createAsyncThunk<AllChatsSchema, void, ThunkConfig<string>>(
+   'users/fetchAllUsers',
    async (data, { dispatch, extra, rejectWithValue }) => {
       try {
-         const response = await extra.api.post('/v1/auth/register', data)
+         const response = await extra.api.get('/v1/users')
 
          if (!response.data) {
             throw new Error()
          }
+
+         dispatch(allChatsActions.setAllChats(response.data))
 
          return response.data
       } catch (e) {

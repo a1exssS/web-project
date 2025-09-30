@@ -4,10 +4,11 @@ import { registerUserActions, registerUserReducers } from '../model/slice/regist
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { Button } from 'shared/ui/Button/Button'
 import { useSelector } from 'react-redux'
-import { getRegisterAge, getRegisterFirstName, getRegisterPassword, getRegisterUsername } from '../model/selector/registerUserData'
+import { getRegisterAge, getRegisterFirstName, getRegisterPassword, getRegisterPhone, getRegisterUsername } from '../model/selector/registerUserData'
 import { registerUser } from '../model/service/registerUsername/registerUsername'
 import { Input, InputThemes } from 'shared/ui/Input/Input'
 import styles from './RegisterUserForm.module.scss'
+import { refreshTokenFetch } from 'entities/User/model/services/refreshTokenFetch/refreshTokenFetch'
 
 const initReducer: ReducersList = {
    register: registerUserReducers
@@ -20,6 +21,7 @@ export const RegisterUserForm = memo(() => {
    const password = useSelector(getRegisterPassword)
    const firstName = useSelector(getRegisterFirstName)
    const age = useSelector(getRegisterAge)
+   const phone = useSelector(getRegisterPhone)
 
    const onChangeUsername = useCallback((value: string) => {
       dispatch(registerUserActions.setUsername(value))
@@ -33,13 +35,16 @@ export const RegisterUserForm = memo(() => {
    const onChangeFirstName = useCallback((value: string) => {
       dispatch(registerUserActions.setFirstName(value))
    }, [dispatch])
+   const onChangePhone = useCallback((value: string) => {
+      dispatch(registerUserActions.setPhone(value))
+   }, [dispatch])
 
    const onSubmit = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
       e.preventDefault()
       dispatch(registerUser({
-         age, firstName, password, username
+         age, firstName, password, username, phoneNumber: phone
       }))
-   }, [dispatch, age, firstName, password, username])
+   }, [dispatch, age, firstName, password, username, phone])
 
    return (
       <DynamicModuleLoader reducers={initReducer}>
@@ -68,8 +73,15 @@ export const RegisterUserForm = memo(() => {
                onChange={onChangeAge}
                value={String(age)}
             />
+            <Input
+               innerPlaceholder='Phone'
+               theme={InputThemes.OUTLINE_CIRCLED}
+               onChange={onChangePhone}
+               value={phone}
+            />
             <Button type='submit'>Отправить</Button>
          </form>
+         <Button type='button' onClick={() => dispatch(refreshTokenFetch())}>Обновить</Button>
       </DynamicModuleLoader>
    )
 })
