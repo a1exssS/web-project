@@ -3,7 +3,7 @@ import { StateSchema, ExtraThunkArg } from '../schema/StateSchema'
 import { $api } from 'shared/api/api'
 import { createReducerManager } from './reducerManager'
 import { userReducers } from 'entities/User'
-import { connection } from 'shared/api/socket'
+import { getOrCreateConnection } from 'shared/api/socket'
 
 export function createReduxStore(
    initialState?: StateSchema,
@@ -11,7 +11,7 @@ export function createReduxStore(
 ) {
    const extraArgs: ExtraThunkArg = {
       api: $api,
-      connection: connection,
+      connection: getOrCreateConnection,
    }
 
    const rootReducers: ReducersMapObject<StateSchema> = {

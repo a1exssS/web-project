@@ -30,10 +30,12 @@ export const routeConfig: Record<RouteNames, AppRouteProps> = {
    all_chats: {
       path: RoutePaths.all_chats,
       element: <AllChatsPage />,
+      authOnly: true,
    },
    chat_with_user: {
       path: RoutePaths.chat_with_user + ':id',
       element: <ChatWithUserPage />,
+      authOnly: true,
    },
    not_found: {
       path: RoutePaths.not_found,

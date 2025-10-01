@@ -7,7 +7,7 @@ import { chatFetchSocket } from '../model/service/ChatFetchSocket/ChatFetchSocke
 import { useSelector } from 'react-redux'
 import { getChatMessage } from '../model/selector/chatMessageData'
 import { Button } from 'shared/ui/Button/Button'
-import { useAddConnection } from 'shared/lib/hooks/useAddConnection/useAddConnection'
+import { DynamicConnection } from 'shared/lib/components/DynamicConnection/DynamicConnection'
 
 const initReducer: ReducersList = {
    chat: chatMessageReducers
@@ -28,19 +28,25 @@ export const ChatForm = ({ receiverId }: ChatFormProp) => {
    const onSubmit = useCallback(() => {
       dispatch(chatFetchSocket({ text, receiverId }))
    }, [dispatch, text, receiverId])
-   useAddConnection({ name: 'SendMessageToUser' })
 
    return (
       <DynamicModuleLoader reducers={initReducer}>
-         <div>
-            <Input
-               innerPlaceholder='Text'
-               theme={InputThemes.OUTLINE_CIRCLED}
-               onChange={onChangePhone}
-               value={text}
-            />
-            <Button onClick={() => onSubmit()}>Отправить</Button>
-         </div>
+         <DynamicConnection
+            subscriptionName='SendMessageToUser'
+            connectionName='chatHub'
+            handler={() => { }}
+            removeAfterUnmount={true}
+         >
+            <div>
+               <Input
+                  outerPlaceholder='Text'
+                  theme={InputThemes.OUTLINE_CIRCLED}
+                  onChange={onChangePhone}
+                  value={text}
+               />
+               <Button onClick={() => onSubmit()}>Отправить</Button>
+            </div>
+         </DynamicConnection>
       </DynamicModuleLoader>
    )
 }

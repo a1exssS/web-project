@@ -50,31 +50,31 @@ export const RegisterUserForm = memo(() => {
       <DynamicModuleLoader reducers={initReducer}>
          <form onSubmit={onSubmit} className={styles.Form}>
             <Input
-               innerPlaceholder='Username'
+               outerPlaceholder='Никнейм'
                theme={InputThemes.OUTLINE_CIRCLED}
                onChange={onChangeUsername}
                value={username}
             />
             <Input
-               innerPlaceholder='Password'
+               outerPlaceholder='Пароль'
                theme={InputThemes.OUTLINE_CIRCLED}
                onChange={onChangePassword}
                value={password}
             />
             <Input
-               innerPlaceholder='First Name'
+               outerPlaceholder='Имя'
                theme={InputThemes.OUTLINE_CIRCLED}
                onChange={onChangeFirstName}
                value={firstName}
             />
             <Input
-               innerPlaceholder='Age'
+               outerPlaceholder='Возраст'
                theme={InputThemes.OUTLINE_CIRCLED}
                onChange={onChangeAge}
                value={String(age)}
             />
             <Input
-               innerPlaceholder='Phone'
+               outerPlaceholder='Телефон'
                theme={InputThemes.OUTLINE_CIRCLED}
                onChange={onChangePhone}
                value={phone}

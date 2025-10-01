@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/storeProvider';
+import { subscriptionName } from 'shared/api/socket';
 
 interface ChatProps {
    text: string;
@@ -11,7 +12,8 @@ export const chatFetchSocket = createAsyncThunk<void, ChatProps, ThunkConfig<str
    async ({ text, receiverId }, { rejectWithValue, extra }) => {
       try {
 
-         await extra.connection.invoke('SendMessageToUser', receiverId, text);
+         await extra.connection('chatHub')
+            .invoke(subscriptionName.SEND_MESSAGE_TO_USER, text, receiverId)
 
       } catch (err) {
          console.log(err)

@@ -10,20 +10,24 @@ import { createReducerManager } from "../config/reducerManager";
 import { UserSchema } from "entities/User";
 import { RegisterSchema } from "features/RegisterUser";
 import { createReduxStore } from "../config/store";
-import { HubConnection } from "@microsoft/signalr";
 import { AllChatsSchema } from "pages/AllChatsPage";
 import { ChatSchema } from "features/Chat/model/types/ChatSchema";
+import { HubConnection } from "@microsoft/signalr";
+import { connectionsNameList } from "shared/api/socket";
+import { LoginSchema } from "features/LoginUser/model/types/LoginSchema";
 
 export interface StateSchema {
    user: UserSchema;
+
    register?: RegisterSchema;
+   login?: LoginSchema;
    chat?: ChatSchema;
    allChats?: AllChatsSchema;
 }
 
 export interface ExtraThunkArg {
    api: AxiosInstance;
-   connection: HubConnection;
+   connection: (name: connectionsNameList) => HubConnection;
 }
 
 export interface ThunkConfig<T> {
